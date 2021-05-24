@@ -4,10 +4,10 @@ from src.config.restplus import json_abort
 from sqlalchemy.exc import SQLAlchemyError
 import datetime
 
-# importa a consulta de product e incluir um apelido ao get para evitar conflito com o get do item
+# importa a consulta de product e inclui um apelido ao get para evitar conflito com o get do item
 from src.services.product_service import get as get_product
 
-# AUTOR SERVICE
+# ITEM SERVICE
 # gerenciar as regras de negocio e CRUD do Item
 ###
 

@@ -1,11 +1,13 @@
 from . import db
-from .product import Product  
+from .product import Product
 
-#configura modelo de dados do ITEM
+# configura modelo de dados do ITEM
+
+
 class Item(db.Model):
     __tablename__ = 'item'
 
-    id = db.Column(db.Integer, primary_key=True) 
+    id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer())
     product_code = db.Column(db.String(255))
     product_id = db.Column(

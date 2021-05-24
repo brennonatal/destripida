@@ -3,7 +3,7 @@ from src.models.product import Product
 from src.config.restplus import json_abort
 from sqlalchemy.exc import SQLAlchemyError
 
-# AUTOR SERVICE
+# PRODUCT SERVICE
 # gerenciar as regras de negocio e CRUD do product
 ###
 
@@ -26,7 +26,7 @@ def create(data):
         sell_price = data.get('sell_price')
         if not sell_price:
             json_abort(400, "Sell price is required")
-        
+
         stock = data.get('stock')
         if not stock:
             json_abort(400, "Available stock is required")
@@ -88,7 +88,7 @@ def change(code, data):
             sell_price = data.get('sell_price')
             if not sell_price:
                 json_abort(400, "Sell price is required")
-            
+
             stock = data.get('stock')
             if not stock:
                 json_abort(400, "Available stock is required")

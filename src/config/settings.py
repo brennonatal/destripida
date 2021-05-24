@@ -1,6 +1,6 @@
 import os
 
-# Congiruracao das variaveis de ambiente e database
+# Configuracao das variaveis de ambiente e database
 ###
 ###
 
