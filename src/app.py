@@ -7,9 +7,11 @@ from src.config.settings import config_by_name
 from src.models import db
 from src.models.product import Product
 from src.models.item import Item
+from src.models.client import Client
 # import blueprint controllers
 from src.api.product_controller import ns as product_namespace
 from src.api.item_controller import ns as item_namespace
+from src.api.client_controller import ns as client_namespace
 
 
 def create_app(config_name):
@@ -42,6 +44,7 @@ def setup_app(app):
     # adiciona namespaces to blueprint
     api.add_namespace(product_namespace)
     api.add_namespace(item_namespace)
+    api.add_namespace(client_namespace)
 
     # registra blueprint
     app.register_blueprint(blueprint, url_prefix='')
