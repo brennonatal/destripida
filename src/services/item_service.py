@@ -25,6 +25,11 @@ def create(data):
 
         product = get_product(product_code)
 
+        if quantity > product.stock:
+            json_abort(400, f'only {product.stock} {product.name} in stock')
+
+        product.stock -= quantity
+
         product_id = product.id
         if not product_id:
             json_abort(400, "product id is required")
@@ -67,30 +72,43 @@ def change(id, data):
 
         if not item:
             json_abort(400, "item not found")
+
+        quantity = data.get('quantity')
+        if not quantity:
+            json_abort(400, "quantity is required")
+
+        product_code = data.get('product_code')
+        if not product_code:
+            json_abort(400, "product code is required")
+
+        product = get_product(product_code)
+
+        product_id = product.id
+        if not product_id:
+            json_abort(400, "product id is required")
+
+        # we must update the product stock if the quantity has changed
+        diff_qtd = quantity - item.quantity
+        
+        # if the quantity has increased
+        if diff_qtd > 0:
+            # we gotta check the stock
+            if diff_qtd > product.stock:
+                json_abort(400, f'only {product.stock} {product.name} in stock')
+            
+            product.stock -= diff_qtd
+        # if the quantity has decreased we add it back to the stock
         else:
+            product.stock += abs(diff_qtd)
 
-            quantity = data.get('quantity')
-            if not quantity:
-                json_abort(400, "quantity is required")
+        item.quantity = quantity
+        item.product_code = product_code
+        item.product_id = product_id
+        item.product = product
 
-            product_code = data.get('product_code')
-            if not product_code:
-                json_abort(400, "product code is required")
+        db.session.commit()
 
-            product = get_product(product_code)
-
-            product_id = product.id
-            if not product_id:
-                json_abort(400, "product id is required")
-
-            item.quantity = quantity
-            item.product_code = product_code
-            item.product_id = product_id
-            item.product = product
-
-            db.session.commit()
-
-            return item
+        return item
 
     except SQLAlchemyError as err:
         db.session.rollback()
@@ -106,6 +124,9 @@ def delete(id):
         if not item:
             json_abort(400, "item not found")
         else:
+            product = get_product(item.product_code)
+            product.stock += item.quantity
+
             db.session.delete(item)
             db.session.commit()
 
