@@ -9,11 +9,10 @@ class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
-    email = db.Column(db.String(255))
-    cpf = db.Column(db.String(255))
+    email = db.Column(db.String(255), unique=True)
+    cpf = db.Column(db.String(14), unique=True)
     cellphone = db.Column(db.String(255))
     
-
     def __str__(self):
         return self.first_name, self.last_name
 

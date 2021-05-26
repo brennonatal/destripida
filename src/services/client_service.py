@@ -70,7 +70,7 @@ def change(id, data):
         client = Client.query.filter_by(id=id).first()
 
         if not client:
-            json_abort(400, "Product not found")
+            json_abort(400, "Client not found")
         else:
 
             first_name = data.get('first_name')
