@@ -2,11 +2,10 @@
 Library     JSONLibrary
 Library     RequestsLibrary
 Library     Collections
-# EXECUTAR ESTE ARQUIVO PRIMEIRO
 
 *** Variables ***
 ${SiteUrl}=     http://localhost:5000/api/
-${cli_id}=   1   #sempre dropar antes de rodar cliente 
+${cli_id}=   1  
 
 *** Test Cases ***
 Add_Client
@@ -17,8 +16,8 @@ Add_Client
 
     Status Should Be                 200  ${response}
 
-Add_ExistingClient  #este teste falha!!#
-    Create Session   api   ${SiteUrl} #Adiciona clientes repetidos  ##email PRECISA SER UNICO## ##CPF PRECISA SER UNICO##
+Add_ExistingClient  
+    Create Session   api   ${SiteUrl} #Adiciona clientes repetidos 
     &{body}=  Create Dictionary  first_name=John   last_name=Cena   email=johncena@NULL.com   cpf=100.312.554/09  cellphone=11962007151
     ${header}=  Create Dictionary  Content-Type=application/json
     ${response}=  POST On Session   api   /client  json=&{body}   headers=${header}   expected_status=anything

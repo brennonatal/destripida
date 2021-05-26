@@ -2,7 +2,7 @@
 Library     JSONLibrary
 Library     RequestsLibrary
 Library     Collections
-# EXECUTAR ESTE ARQUIVO APOS CLIENT 
+ 
 
 *** Variables ***
 ${SiteUrl}=   http://localhost:5000/api/ 
@@ -10,7 +10,7 @@ ${code}=   BLM
 
 *** Test Cases ***
 Add_Product
-    Create Session  api  ${SiteUrl}         #Code precisa ser unique para nao inserir duplicado
+    Create Session  api  ${SiteUrl}        
     &{body}=  Create Dictionary  name=balmy  code=${code}  cost_price=50  sell_price=100  stock=100
     ${header}=  Create Dictionary  Content-Type=application/json
     ${response}=  POST On Session   api   /product  json=&{body}   headers=${header}   expected_status=anything
