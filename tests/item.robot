@@ -23,7 +23,7 @@ Add_Item
 
 Get_Item
     Create Session  api  ${SiteUrl} 
-    ${response}=   GET On Session  api  /item/${item_id}   expected_status=200                                   
+    ${response}=   GET On Session  api  /item/1   expected_status=200                                   
 
     Status Should Be                 200  ${response}
 
@@ -36,9 +36,9 @@ Update_Item
 
     Status Should Be                 200  ${response}
 
-Delete_Item
-    Create Session  api  ${SiteUrl} 
-    ${response}=   DELETE On Session  api  /item/${item_id}  expected_status=200   
+# Delete_Item
+#     Create Session  api  ${SiteUrl} 
+#     ${response}=   DELETE On Session  api  /item/${item_id}  expected_status=200   
       
     
    Status Should Be                 200  ${response}
